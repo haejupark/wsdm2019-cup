@@ -25,7 +25,7 @@ new_data['sentence2'] = new_data['sentence2'].apply(lambda x:' '.join(jieba.cut(
 #print(new_data['sentence3'])
 
 tests = pd.DataFrame()
-tests['id'] = data['id']
+tests['id'] = test_data['id']
 tests['sentence1'] = test_data['title1_zh'].astype(str)
 tests['sentence2'] = test_data['title2_zh'].astype(str)
 tests['sentence1'] = test_data['title1_zh'].apply(lambda x:' '.join(jieba.cut(x)))
@@ -62,7 +62,7 @@ def get_vectors(word_dict, vec_file, emb_size=300):
 	return word_vectors	
 	
 		
-embeddings_chinese = "../aaai2019/data/wiki.zh.vec"			
+embeddings_chinese = "../data/wiki.zh.vec"			
 word_embeddings = get_vectors(word_dict, embeddings_chinese)
 print(len(word_embeddings))
 
