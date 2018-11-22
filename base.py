@@ -149,17 +149,8 @@ print(model.summary())
 model.compile(optimizer='adam', loss=['categorical_crossentropy'], metrics=['accuracy'])
 
 results = model.fit([X, Y], [Z], 
-				validation_data = ([devX, devY], [devZ]),
-				batch_size = 1024,
-				shuffle = True,
-				epochs=15)
-
-preds = model.predict([testX,testY])
-preds = np.argmax(preds, axis=1)
-
-submits = pd.DataFrame()
-submits['Id'] = test['id']
-submits['Category'] = preds
-submits['Category'] = submits['Category'].apply(lambda x: labels_reverse[x])
-submits.to_csv('result.txt',index=False)
+		validation_data = ([devX, devY], [devZ]),
+		batch_size = 1024,
+		shuffle = True,
+		epochs=15)
 
