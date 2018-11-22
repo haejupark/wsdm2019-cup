@@ -7,6 +7,8 @@ from keras.preprocessing import sequence
 from keras.layers import *
 from keras.models import *
 from sklearn.model_selection import train_test_split
+from keras.callbacks import ModelCheckpoint
+
 data = pd.read_csv("train.csv")
 test_data = pd.read_csv("test.csv")
 
@@ -148,9 +150,14 @@ model = Model([source_input1,source_input2], [source_out])
 print(model.summary())
 model.compile(optimizer='adam', loss=['categorical_crossentropy'], metrics=['accuracy'])
 
+filepath= "models/weights-best.hdf5"
+checkpoint = ModelCheckpoint(filepath, monitor='val_acc', verbose=1, save_best_only=True, save_weights_only=True, mode='max')
+callbacks_list = [checkpoint]
+
 results = model.fit([X, Y], [Z], 
 		validation_data = ([devX, devY], [devZ]),
 		batch_size = 1024,
 		shuffle = True,
+		callbacks=callbacks_list,
 		epochs=15)
 
